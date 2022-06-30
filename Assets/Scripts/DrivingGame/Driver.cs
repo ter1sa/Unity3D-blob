@@ -15,10 +15,8 @@ public class Driver : MonoBehaviour
 
     public GameObject gameTime;
     public GameObject trafficLight;
-    public GameObject addScore;
     public GameObject statsPanel;
     public GameObject Bumps;
-    public GameObject stats;
     
     private void Start()
     {
@@ -66,11 +64,14 @@ public class Driver : MonoBehaviour
     IEnumerator endGame(){
         end = true;
         gameTime.GetComponent<timeScript> ().endGame ();
-        addScore.SetActive(true);
-        stats.GetComponent<StatsController>().ChangeStats(StatsController.Stats.Hunger, 30);
+        GameObject.Find("HungerBar").GetComponent<GetAddScore>().AddScore.SetActive(true);
+        GameObject.Find("HealthBar").GetComponent<GetAddScore>().AddScore.SetActive(true);
+        GameObject.Find("Stats").GetComponent<StatsController>().ChangeStats(StatsController.Stats.Hunger, 30);
+        GameObject.Find("Stats").GetComponent<StatsController>().ChangeStats(StatsController.Stats.Health, 10);
         yield return new WaitForSeconds(2f);
         Time.timeScale = 0f;
-        addScore.SetActive(false);
+        GameObject.Find("HungerBar").GetComponent<GetAddScore>().AddScore.SetActive(false);
+        GameObject.Find("HealthBar").GetComponent<GetAddScore>().AddScore.SetActive(false);
         statsPanel.SetActive(true);
     }
 }

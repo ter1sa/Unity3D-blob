@@ -16,8 +16,7 @@ public class StatsController : MonoBehaviour
         Amusement
     };
 
-    //TODO: make it protected and add getters and setters
-    static public Dictionary<Stats, int> stats = new Dictionary<Stats, int>
+    public Dictionary<Stats, int> stats = new Dictionary<Stats, int>
     {
         {Stats.Health, 100},
         {Stats.Energy, 100},
@@ -98,5 +97,8 @@ public class StatsController : MonoBehaviour
         stats[Stats.Hunger] = 100;
         stats[Stats.Thirst] = 100;
         stats[Stats.Amusement] = 100;
+        gameOver.SetActive(false);
+        isAlive = true;
+        GameObject.Find("SceneController").GetComponent<Controllers.SceneController>().SwitchScene("MainMenu");
     }
 }

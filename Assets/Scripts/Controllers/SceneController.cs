@@ -6,16 +6,22 @@ namespace Controllers
 {
     public class SceneController : MonoBehaviour
     {
-        [SerializeField] private GameObject transitionPanelGameObject;
         [SerializeField] private GameObject mainCameraGameObject;
-        // [SerializeField] private GameObject horizon;
 
         private Animator transitionPanelAnimator;
         private Animator mainCameraAnimator;
+        static public bool _mainMenu;
+        // GameObject Stats;
 
         private void Start()
         {
-            transitionPanelAnimator = transitionPanelGameObject.GetComponent<Animator>();
+            // Stats = GameObject.Find("Stats");
+            // if (SceneManager.GetActiveScene().name == "MainMenu")
+            // {
+            //     Stats.SetActive(false);
+            // }
+            _mainMenu = false;
+            transitionPanelAnimator = GameObject.Find("TransitionPanel2").GetComponent<Animator>();
             mainCameraAnimator = mainCameraGameObject.GetComponent<Animator>();
         }
 
@@ -23,16 +29,20 @@ namespace Controllers
         {
             ResetGameState();
 
-            // if (SceneManager.GetActiveScene().name == "MainMenu")
-            // {
-            //     mainCameraAnimator.SetTrigger("CameraZoomIn");
-            // }
-
+            if (SceneManager.GetActiveScene().name == "MainMenu")
+            {
+                _mainMenu = true;
+            }
+            else{
+                _mainMenu = false;
+            }
+            
             StartCoroutine(LoadScene(sceneName));
         }
 
         private IEnumerator LoadScene(string sceneName)
         {
+            // Stats.SetActive(true);
             transitionPanelAnimator.Play("CircleWipeIn");
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
             asyncOperation.allowSceneActivation = false;
@@ -55,5 +65,9 @@ namespace Controllers
             GameController.GamePaused = false;
             GameController.DoubleTempo = false;
         }
+
+        public bool mainMenu {
+		    get { return _mainMenu; }
+	    }
     }
 }

@@ -19,8 +19,6 @@ namespace World
         private bool isNight;
         private int dayCounter;
 
-        static Horizon OneAndOnlyHorizon;
-
         private void Start()
         {
             StartHorizonCycle();
@@ -29,14 +27,6 @@ namespace World
             dayCounterAnimation = GameObject.FindWithTag("DayCounter").GetComponent<Animation>();
             backgroundAnimation = background.GetComponent<Animation>();
             dayCounterText = GameObject.FindWithTag("DayCounter").GetComponent<Text>();
-            
-            if(OneAndOnlyHorizon != null){
-                Destroy(this.gameObject);
-                return;
-            }
-
-            OneAndOnlyHorizon = this;
-            GameObject.DontDestroyOnLoad(this.gameObject);
         }
 
         public bool IsNight()
@@ -73,6 +63,8 @@ namespace World
         }
 
         public void RestartGame(){
+            isNight = false;
+            dayCounter = 0;
             StartHorizonCycle();
         }
     }

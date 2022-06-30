@@ -8,9 +8,7 @@ using UnityEngine.SceneManagement;
 public class TimeManager : MonoBehaviour {
 
     public GameObject timeLabel;
-    public GameObject addScore;
 	public GameObject statsPanel;
-    public GameObject stats;
 
     float maxTime = 20;
     public bool gameOver = false;
@@ -38,11 +36,14 @@ public class TimeManager : MonoBehaviour {
 
     IEnumerator endGame(){
 		timeLabel.GetComponent<Text>().color = Color.yellow;
-        addScore.SetActive(true);
-        stats.GetComponent<StatsController>().ChangeStats(StatsController.Stats.Energy, 30);
+        GameObject.Find("EnergyBar").GetComponent<GetAddScore>().AddScore.SetActive(true);
+        GameObject.Find("HealthBar").GetComponent<GetAddScore>().AddScore.SetActive(true);
+        GameObject.Find("Stats").GetComponent<StatsController>().ChangeStats(StatsController.Stats.Energy, 30);
+        GameObject.Find("Stats").GetComponent<StatsController>().ChangeStats(StatsController.Stats.Health, 10);
         yield return new WaitForSeconds(2f);
         Time.timeScale = 0f;
-        addScore.SetActive(false);
+        GameObject.Find("EnergyBar").GetComponent<GetAddScore>().AddScore.SetActive(false);
+        GameObject.Find("HealthBar").GetComponent<GetAddScore>().AddScore.SetActive(false);
         statsPanel.SetActive(true);
     }
 }

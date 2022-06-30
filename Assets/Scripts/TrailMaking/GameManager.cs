@@ -9,9 +9,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject[] Droplets;
 	public GameObject gameTime;
     public GameObject gameErrors;
-    public GameObject addScore;
 	public GameObject statsPanel;
-    public GameObject stats;
 
 	private bool _init  = false;
     private int droplets = 9;
@@ -102,11 +100,14 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator endGame(){
         gameTime.GetComponent<timeScript> ().endGame ();
-        addScore.SetActive(true);
-        stats.GetComponent<StatsController>().ChangeStats(StatsController.Stats.Thirst, 30);
+        GameObject.Find("ThirstBar").GetComponent<GetAddScore>().AddScore.SetActive(true);
+        GameObject.Find("HealthBar").GetComponent<GetAddScore>().AddScore.SetActive(true);
+        GameObject.Find("Stats").GetComponent<StatsController>().ChangeStats(StatsController.Stats.Thirst, 30);
+        GameObject.Find("Stats").GetComponent<StatsController>().ChangeStats(StatsController.Stats.Health, 10);
         yield return new WaitForSeconds(2f);
         Time.timeScale = 0f;
-        addScore.SetActive(false);
+        GameObject.Find("ThirstBar").GetComponent<GetAddScore>().AddScore.SetActive(false);
+        GameObject.Find("HealthBar").GetComponent<GetAddScore>().AddScore.SetActive(false);
         statsPanel.SetActive(true);
     }
 }

@@ -11,9 +11,7 @@ public class gameManager : MonoBehaviour {
 	public GameObject[] cards;
 	public GameObject gameTime;
 	public GameObject Mismatch;
-	public GameObject addScore;
 	public GameObject statsPanel;
-	public GameObject stats;
 
 	private int mismatch = -4;
 	private bool _init  = false;
@@ -96,11 +94,14 @@ public class gameManager : MonoBehaviour {
 
 	IEnumerator endGame(){
         gameTime.GetComponent<timeScript> ().endGame ();
-        addScore.SetActive(true);
-        stats.GetComponent<StatsController>().ChangeStats(StatsController.Stats.Amusement, 30);
+        GameObject.Find("AmusementBar").GetComponent<GetAddScore>().AddScore.SetActive(true);
+		GameObject.Find("HealthBar").GetComponent<GetAddScore>().AddScore.SetActive(true);
+        GameObject.Find("Stats").GetComponent<StatsController>().ChangeStats(StatsController.Stats.Amusement, 30);
+		GameObject.Find("Stats").GetComponent<StatsController>().ChangeStats(StatsController.Stats.Health, 10);
         yield return new WaitForSeconds(2f);
         Time.timeScale = 0f;
-        addScore.SetActive(false);
+        GameObject.Find("AmusementBar").GetComponent<GetAddScore>().AddScore.SetActive(false);
+		GameObject.Find("HealthBar").GetComponent<GetAddScore>().AddScore.SetActive(false);
         statsPanel.SetActive(true);
     }
 }
